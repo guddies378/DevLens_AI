@@ -199,94 +199,6 @@ devlens-ai/
 
 ---
 
-## Getting Started
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/guddies378/devlens-ai
-```
-
-Move into the project:
-
-```bash
-cd devlens-ai
-```
-
-### 2. Install Node.js dependencies
-
-```bash
-npm install
-```
-
-### 3. Create a Python virtual environment
-
-Windows:
-
-```powershell
-python -m venv .venv
-```
-
-Activate it:
-
-```powershell
-.\.venv\Scripts\Activate.ps1
-```
-
-macOS / Linux:
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-```
-
-### 4. Install Python dependencies
-
-```bash
-pip install -r python/requirements.txt
-```
-
-### 5. Configure environment variables
-
-Create:
-
-```text
-.env.local
-```
-
-Add your Gemini API key:
-
-```env
-GEMINI_API_KEY=your_api_key_here
-```
-
-Never commit `.env.local` or your API key to GitHub.
-
-### 6. Start the development server
-
-```bash
-npm run dev
-```
-
-Open the local development URL shown by Next.js in your browser.
-
----
-
-## Production Build
-
-Create an optimized production build:
-
-```bash
-npm run build
-```
-
-Start the production server:
-
-```bash
-npm start
-```
-
----
 
 ## How It Works
 
@@ -340,6 +252,8 @@ AI-generated analysis may also occasionally be incomplete or inaccurate and shou
 
 ## 👨‍💻 Author
 
+https://github.com/guddies378
+
 Designed and developed from the ground up as a software development project.
 
 Built to learn, experiment, solve problems, and turn ideas into working software.
@@ -348,4 +262,4 @@ Built to learn, experiment, solve problems, and turn ideas into working software
 
 ## 📜 License
 
-A software development project created for learning, experimentation, and personal use.
+© 2026 Mark James F. Manlangit. All Rights Reserved.

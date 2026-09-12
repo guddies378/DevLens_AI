@@ -89,11 +89,9 @@ export default function Home() {
       // Gemini AI analysis
       const aiRequest = fetch("/api/analyze", {
         method: "POST",
-
         headers: {
           "Content-Type": "application/json",
         },
-
         body: JSON.stringify({
           code,
           language,
@@ -101,14 +99,11 @@ export default function Home() {
       });
 
       // DevLens metrics engine
-      // Runs for every supported language
       const metricsRequest = fetch("/api/metrics", {
         method: "POST",
-
         headers: {
           "Content-Type": "application/json",
         },
-
         body: JSON.stringify({
           code,
           language,
@@ -224,16 +219,16 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-[#0a0a0a] text-white">
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10">
+    <main className="min-h-screen overflow-x-hidden bg-[#0a0a0a] text-white">
+      <div className="mx-auto w-full max-w-7xl px-3 py-6 sm:px-5 sm:py-8 md:px-6 lg:px-8 lg:py-10">
 
         {/* =================================================
             HEADER
         ================================================= */}
 
-        <header className="mb-10 flex items-center justify-between gap-4 sm:mb-12">
-          <div>
-            <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+        <header className="mb-8 flex items-start justify-between gap-3 sm:mb-10 sm:items-center md:mb-12">
+          <div className="min-w-0">
+            <h1 className="text-xl font-bold tracking-tight sm:text-2xl md:text-3xl">
               DevLens
               <span className="text-zinc-500">
                 {" "}
@@ -241,12 +236,12 @@ export default function Home() {
               </span>
             </h1>
 
-            <p className="mt-1 text-sm text-zinc-500">
+            <p className="mt-1 max-w-62.5 text-xs leading-5 text-zinc-500 sm:max-w-none sm:text-sm">
               AI-powered multi-language code analysis
             </p>
           </div>
 
-          <span className="shrink-0 rounded-full border border-zinc-800 px-3 py-1.5 text-xs text-zinc-400 sm:px-4 sm:py-2">
+          <span className="shrink-0 rounded-full border border-zinc-800 px-2.5 py-1 text-[10px] text-zinc-400 sm:px-4 sm:py-2 sm:text-xs">
             v1.0
           </span>
         </header>
@@ -255,21 +250,26 @@ export default function Home() {
             MAIN CONTENT
         ================================================= */}
 
-        <section className="grid gap-8 lg:grid-cols-2">
+        <section className="grid min-w-0 gap-8 lg:grid-cols-2 lg:gap-10 xl:gap-12">
 
           {/* =================================================
               LEFT SIDE
           ================================================= */}
 
-          <div>
-            <div className="mb-3 flex items-center justify-between gap-4">
+          <div className="min-w-0">
+
+            {/* CODE HEADER */}
+
+            <div className="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+
               <h2 className="font-semibold">
                 Your Code
               </h2>
 
               {/* LANGUAGE SELECTOR */}
 
-              <div className="relative">
+              <div className="relative w-full sm:w-auto">
+
                 <button
                   type="button"
                   onClick={() =>
@@ -279,7 +279,7 @@ export default function Home() {
                   }
                   className="
                     flex
-                    min-w-40
+                    w-full
                     items-center
                     justify-between
                     gap-4
@@ -288,19 +288,21 @@ export default function Home() {
                     border-zinc-800
                     bg-zinc-950
                     px-3
-                    py-2
+                    py-2.5
                     text-sm
                     text-zinc-300
                     transition
                     hover:border-zinc-700
+                    sm:min-w-40
+                    sm:w-auto
                   "
                 >
-                  <span>
+                  <span className="truncate">
                     {selectedLanguage?.name ||
                       language}
                   </span>
 
-                  <span className="text-[10px] text-zinc-600">
+                  <span className="shrink-0 text-[10px] text-zinc-600">
                     ▼
                   </span>
                 </button>
@@ -311,19 +313,23 @@ export default function Home() {
                   <div
                     className="
                       absolute
+                      left-0
                       right-0
                       top-full
                       z-50
                       mt-2
-                      w-70
+                      w-full
                       overflow-hidden
                       rounded-xl
                       border
                       border-zinc-800
                       bg-zinc-950
                       shadow-2xl
+                      sm:left-auto
+                      sm:w-72
                     "
                   >
+
                     {/* SEARCH */}
 
                     <div className="border-b border-zinc-800 p-3">
@@ -344,7 +350,7 @@ export default function Home() {
                           border-zinc-800
                           bg-black
                           px-3
-                          py-2
+                          py-2.5
                           text-sm
                           text-zinc-200
                           outline-none
@@ -356,9 +362,8 @@ export default function Home() {
 
                     {/* LANGUAGE LIST */}
 
-                    <div className="max-h-80 overflow-y-auto p-2">
-                      {filteredLanguages.length >
-                      0 ? (
+                    <div className="max-h-72 overflow-y-auto p-2 sm:max-h-80">
+                      {filteredLanguages.length > 0 ? (
                         filteredLanguages.map(
                           (item) => (
                             <button
@@ -374,6 +379,7 @@ export default function Home() {
                                 w-full
                                 items-center
                                 justify-between
+                                gap-3
                                 rounded-lg
                                 px-3
                                 py-2.5
@@ -388,11 +394,11 @@ export default function Home() {
                                 }
                               `}
                             >
-                              <span>
+                              <span className="min-w-0 truncate">
                                 {item.name}
                               </span>
 
-                              <span className="text-xs text-zinc-600">
+                              <span className="shrink-0 text-xs text-zinc-600">
                                 {item.short}
                               </span>
                             </button>
@@ -410,14 +416,16 @@ export default function Home() {
             </div>
 
             {/* =================================================
-                MAIN MONACO EDITOR
+                MAIN CODE EDITOR
             ================================================= */}
 
-            <CodeEditor
-              code={code}
-              language={language}
-              onChange={setCode}
-            />
+            <div className="min-w-0 overflow-hidden rounded-xl">
+              <CodeEditor
+                code={code}
+                language={language}
+                onChange={setCode}
+              />
+            </div>
 
             {/* =================================================
                 ANALYZE BUTTON
@@ -434,15 +442,20 @@ export default function Home() {
                 w-full
                 rounded-xl
                 bg-white
-                px-6
-                py-3
+                px-5
+                py-3.5
+                text-sm
                 font-semibold
                 text-black
                 transition
                 hover:bg-zinc-200
+                active:scale-[0.99]
                 disabled:cursor-not-allowed
                 disabled:bg-zinc-700
                 disabled:text-zinc-400
+                sm:px-6
+                sm:py-3
+                sm:text-base
               "
             >
               {loading
@@ -455,19 +468,23 @@ export default function Home() {
               RIGHT SIDE
           ================================================= */}
 
-          <div>
+          <div className="min-w-0">
+
             <h2 className="mb-3 font-semibold">
               Analysis
             </h2>
 
             <div
               className="
-                min-h-125
+                min-h-75
+                min-w-0
+                overflow-hidden
                 rounded-xl
                 border
                 border-zinc-800
                 bg-zinc-950
                 p-4
+                sm:min-h-100
                 sm:p-6
               "
             >
@@ -482,7 +499,7 @@ export default function Home() {
                     Analysis Error
                   </p>
 
-                  <p className="mt-2 text-sm leading-6 text-red-400">
+                  <p className="mt-2 wrap-break-word text-sm leading-6 text-red-400">
                     {analysisError}
                   </p>
                 </div>
@@ -495,8 +512,8 @@ export default function Home() {
               {!analysis &&
                 !loading &&
                 !analysisError && (
-                  <div className="flex min-h-112.5 items-center justify-center">
-                    <div className="text-center">
+                  <div className="flex min-h-65 items-center justify-center sm:min-h-87.5">
+                    <div className="w-full max-w-sm text-center">
                       <div className="mb-4 text-4xl">
                         ⌘
                       </div>
@@ -505,13 +522,13 @@ export default function Home() {
                         Ready to analyze
                       </h3>
 
-                      <p className="mt-2 max-w-xs text-sm leading-6 text-zinc-600">
+                      <p className="mx-auto mt-2 max-w-xs text-sm leading-6 text-zinc-600">
                         Paste your code, choose the
                         programming language, and
                         click Analyze Code.
                       </p>
 
-                      <p className="mt-3 text-xs text-zinc-700">
+                      <p className="mt-3 text-xs leading-5 text-zinc-700">
                         Code metrics are available
                         for all supported languages.
                       </p>
@@ -524,15 +541,15 @@ export default function Home() {
               ================================================= */}
 
               {loading && (
-                <div className="flex min-h-112.5 items-center justify-center">
-                  <div className="text-center">
+                <div className="flex min-h-65 items-center justify-center sm:min-h-87.5">
+                  <div className="w-full max-w-sm text-center">
                     <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-2 border-zinc-700 border-t-white" />
 
                     <p className="text-sm text-zinc-400">
                       Analyzing your code...
                     </p>
 
-                    <p className="mt-2 text-xs text-zinc-600">
+                    <p className="mt-2 text-xs leading-5 text-zinc-600">
                       Running AI review and static
                       code metrics
                     </p>
@@ -545,7 +562,7 @@ export default function Home() {
               ================================================= */}
 
               {analysis && (
-                <div>
+                <div className="min-w-0">
 
                   {/* =============================================
                       QUALITY SCORE
@@ -557,11 +574,11 @@ export default function Home() {
                     </p>
 
                     <div className="mt-2 flex items-end gap-2">
-                      <span className="text-5xl font-bold">
+                      <span className="text-4xl font-bold sm:text-5xl">
                         {analysis.score}
                       </span>
 
-                      <span className="mb-1 text-zinc-500">
+                      <span className="mb-1 text-sm text-zinc-500 sm:text-base">
                         /100
                       </span>
                     </div>
@@ -591,7 +608,7 @@ export default function Home() {
                       Explanation
                     </h3>
 
-                    <p className="text-sm leading-7 text-zinc-400">
+                    <p className="wrap-break-word text-sm leading-7 text-zinc-400">
                       {analysis.explanation}
                     </p>
                   </div>
@@ -605,8 +622,7 @@ export default function Home() {
                       Potential Issues
                     </h3>
 
-                    {analysis.issues.length >
-                    0 ? (
+                    {analysis.issues.length > 0 ? (
                       <div className="space-y-3">
                         {analysis.issues.map(
                           (issue, index) => (
@@ -627,7 +643,9 @@ export default function Home() {
                                 {index + 1}.
                               </span>
 
-                              {issue}
+                              <span className="wrap-break-word">
+                                {issue}
+                              </span>
                             </div>
                           )
                         )}
@@ -671,7 +689,9 @@ export default function Home() {
                                 ✓
                               </span>
 
-                              {suggestion}
+                              <span className="wrap-break-word">
+                                {suggestion}
+                              </span>
                             </div>
                           )
                         )}
@@ -694,7 +714,7 @@ export default function Home() {
                         Code Metrics Unavailable
                       </p>
 
-                      <p className="mt-2 text-sm leading-6 text-yellow-400">
+                      <p className="mt-2 wrap-break-word text-sm leading-6 text-yellow-400">
                         {metricsError}
                       </p>
                     </div>
@@ -705,13 +725,14 @@ export default function Home() {
                   ============================================= */}
 
                   {metrics && (
-                    <div className="mb-8">
+                    <div className="mb-8 min-w-0">
+
                       <div className="mb-4">
                         <h3 className="font-semibold">
                           {language} Code Metrics
                         </h3>
 
-                        <p className="mt-1 text-xs text-zinc-600">
+                        <p className="mt-1 text-xs leading-5 text-zinc-600">
                           Static analysis calculated
                           by the DevLens metrics engine
                         </p>
@@ -719,43 +740,44 @@ export default function Home() {
 
                       {/* MAIN METRICS */}
 
-                      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-                        <div className="rounded-xl border border-zinc-800 bg-black p-4">
-                          <p className="text-2xl font-bold">
+                      <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4 sm:gap-3">
+
+                        <div className="min-w-0 rounded-xl border border-zinc-800 bg-black p-3 sm:p-4">
+                          <p className="text-xl font-bold sm:text-2xl">
                             {metrics.totalLines}
                           </p>
 
-                          <p className="mt-1 text-xs text-zinc-500">
+                          <p className="mt-1 text-[11px] leading-4 text-zinc-500 sm:text-xs">
                             Total Lines
                           </p>
                         </div>
 
-                        <div className="rounded-xl border border-zinc-800 bg-black p-4">
-                          <p className="text-2xl font-bold">
+                        <div className="min-w-0 rounded-xl border border-zinc-800 bg-black p-3 sm:p-4">
+                          <p className="text-xl font-bold sm:text-2xl">
                             {metrics.codeLines}
                           </p>
 
-                          <p className="mt-1 text-xs text-zinc-500">
+                          <p className="mt-1 text-[11px] leading-4 text-zinc-500 sm:text-xs">
                             Code Lines
                           </p>
                         </div>
 
-                        <div className="rounded-xl border border-zinc-800 bg-black p-4">
-                          <p className="text-2xl font-bold">
+                        <div className="min-w-0 rounded-xl border border-zinc-800 bg-black p-3 sm:p-4">
+                          <p className="text-xl font-bold sm:text-2xl">
                             {metrics.functions}
                           </p>
 
-                          <p className="mt-1 text-xs text-zinc-500">
+                          <p className="mt-1 text-[11px] leading-4 text-zinc-500 sm:text-xs">
                             Functions
                           </p>
                         </div>
 
-                        <div className="rounded-xl border border-zinc-800 bg-black p-4">
-                          <p className="text-2xl font-bold">
+                        <div className="min-w-0 rounded-xl border border-zinc-800 bg-black p-3 sm:p-4">
+                          <p className="text-xl font-bold sm:text-2xl">
                             {metrics.classes}
                           </p>
 
-                          <p className="mt-1 text-xs text-zinc-500">
+                          <p className="mt-1 text-[11px] leading-4 text-zinc-500 sm:text-xs">
                             Classes
                           </p>
                         </div>
@@ -764,6 +786,7 @@ export default function Home() {
                       {/* COMPLEXITY + MAINTAINABILITY */}
 
                       <div className="mt-3 grid gap-3 sm:grid-cols-2">
+
                         <div className="rounded-xl border border-zinc-800 bg-black/30 p-4">
                           <p className="text-xs uppercase tracking-wide text-zinc-500">
                             {language === "Python"
@@ -771,7 +794,7 @@ export default function Home() {
                               : "Estimated Complexity"}
                           </p>
 
-                          <p className="mt-2 text-3xl font-bold">
+                          <p className="mt-2 text-2xl font-bold sm:text-3xl">
                             {metrics.complexity}
                           </p>
                         </div>
@@ -782,7 +805,7 @@ export default function Home() {
                           </p>
 
                           <div className="mt-2 flex items-end gap-1">
-                            <p className="text-3xl font-bold">
+                            <p className="text-2xl font-bold sm:text-3xl">
                               {
                                 metrics.maintainability
                               }
@@ -798,8 +821,9 @@ export default function Home() {
                       {/* ADDITIONAL METRICS */}
 
                       <div className="mt-3 rounded-xl border border-zinc-800 bg-black/30 p-4">
-                        <div className="grid grid-cols-2 gap-4 text-sm sm:grid-cols-4">
-                          <div>
+                        <div className="grid grid-cols-2 gap-x-4 gap-y-5 text-sm sm:grid-cols-4">
+
+                          <div className="min-w-0">
                             <p className="text-zinc-500">
                               Blank Lines
                             </p>
@@ -811,7 +835,7 @@ export default function Home() {
                             </p>
                           </div>
 
-                          <div>
+                          <div className="min-w-0">
                             <p className="text-zinc-500">
                               Comments
                             </p>
@@ -823,7 +847,7 @@ export default function Home() {
                             </p>
                           </div>
 
-                          <div>
+                          <div className="min-w-0">
                             <p className="text-zinc-500">
                               Imports
                             </p>
@@ -833,7 +857,7 @@ export default function Home() {
                             </p>
                           </div>
 
-                          <div>
+                          <div className="min-w-0">
                             <p className="text-zinc-500">
                               Syntax
                             </p>
@@ -846,6 +870,7 @@ export default function Home() {
                                 : "Estimated"}
                             </p>
                           </div>
+
                         </div>
                       </div>
 
@@ -857,6 +882,7 @@ export default function Home() {
                         metrics.complexityBlocks
                           .length > 0 && (
                           <div className="mt-3 rounded-xl border border-zinc-800 p-4">
+
                             <h4 className="mb-3 text-sm font-medium text-zinc-300">
                               Complexity Breakdown
                             </h4>
@@ -869,7 +895,13 @@ export default function Home() {
                                 ) => (
                                   <div
                                     key={`${block.name}-${index}`}
-                                    className="flex items-center justify-between gap-4 text-sm"
+                                    className="
+                                      flex
+                                      items-center
+                                      justify-between
+                                      gap-3
+                                      text-sm
+                                    "
                                   >
                                     <div className="min-w-0">
                                       <p className="truncate text-zinc-400">
@@ -884,7 +916,7 @@ export default function Home() {
                                       </p>
                                     </div>
 
-                                    <span className="shrink-0 rounded-md bg-zinc-900 px-2 py-1 text-xs text-zinc-400">
+                                    <span className="shrink-0 rounded-md bg-zinc-900 px-2 py-1 text-[10px] text-zinc-400 sm:text-xs">
                                       Complexity{" "}
                                       {
                                         block.complexity
@@ -903,14 +935,16 @@ export default function Home() {
                       IMPROVED CODE
                   ============================================= */}
 
-                  <div>
-                    <div className="mb-3 flex items-center justify-between gap-4">
-                      <div>
+                  <div className="min-w-0">
+
+                    <div className="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+
+                      <div className="min-w-0">
                         <h3 className="font-semibold">
                           Improved Code
                         </h3>
 
-                        <p className="mt-1 text-xs text-zinc-600">
+                        <p className="mt-1 text-xs leading-5 text-zinc-600">
                           AI-generated improved{" "}
                           {language} code
                         </p>
@@ -923,12 +957,12 @@ export default function Home() {
                           !analysis.improvedCode
                         }
                         className="
-                          shrink-0
+                          w-full
                           rounded-md
                           border
                           border-zinc-700
                           px-3
-                          py-1.5
+                          py-2
                           text-xs
                           text-zinc-300
                           transition
@@ -936,6 +970,9 @@ export default function Home() {
                           hover:bg-zinc-800
                           disabled:cursor-not-allowed
                           disabled:opacity-50
+                          sm:w-auto
+                          sm:shrink-0
+                          sm:py-1.5
                         "
                       >
                         {copied
@@ -948,13 +985,17 @@ export default function Home() {
                         READ-ONLY MONACO EDITOR
                     ========================================= */}
 
-                    <CodeEditor
-                      code={analysis.improvedCode}
-                      language={language}
-                      onChange={() => {}}
-                      readOnly={true}
-                      height="420px"
-                    />
+                    <div className="min-w-0 overflow-hidden rounded-xl">
+                      <CodeEditor
+                        code={
+                          analysis.improvedCode
+                        }
+                        language={language}
+                        onChange={() => {}}
+                        readOnly={true}
+                        height="420px"
+                      />
+                    </div>
                   </div>
                 </div>
               )}
@@ -966,7 +1007,7 @@ export default function Home() {
             FOOTER
         ================================================= */}
 
-        <footer className="mt-16 border-t border-zinc-900 pt-6 text-center text-xs text-zinc-600">
+        <footer className="mt-12 border-t border-zinc-900 pt-6 text-center text-xs leading-5 text-zinc-600 sm:mt-16">
           DevLens AI — AI-powered multi-language
           code analysis
         </footer>
