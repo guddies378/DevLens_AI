@@ -121,10 +121,31 @@ export default function Home() {
           .json()
           .catch(() => null);
 
-        setAnalysisError(
-          errorData?.error ||
-            "AI analysis failed. Please try again."
-        );
+        const errorMessage =
+          errorData?.error || "";
+
+        // Handle API limit / quota / credits
+        if (
+          aiResponse.status === 429 ||
+          errorMessage
+            .toLowerCase()
+            .includes("limit") ||
+          errorMessage
+            .toLowerCase()
+            .includes("quota") ||
+          errorMessage
+            .toLowerCase()
+            .includes("credit")
+        ) {
+          setAnalysisError(
+            "limit reached. You have no credits remaining."
+          );
+        } else {
+          setAnalysisError(
+            errorMessage ||
+              "AI analysis failed. Please try again."
+          );
+        }
 
         return;
       }
@@ -806,9 +827,7 @@ export default function Home() {
 
                           <div className="mt-2 flex items-end gap-1">
                             <p className="text-2xl font-bold sm:text-3xl">
-                              {
-                                metrics.maintainability
-                              }
+                              {metrics.maintainability}
                             </p>
 
                             <span className="mb-1 text-sm text-zinc-600">
@@ -829,9 +848,7 @@ export default function Home() {
                             </p>
 
                             <p className="mt-1 font-medium">
-                              {
-                                metrics.blankLines
-                              }
+                              {metrics.blankLines}
                             </p>
                           </div>
 
@@ -841,9 +858,7 @@ export default function Home() {
                             </p>
 
                             <p className="mt-1 font-medium">
-                              {
-                                metrics.commentLines
-                              }
+                              {metrics.commentLines}
                             </p>
                           </div>
 
@@ -905,9 +920,7 @@ export default function Home() {
                                   >
                                     <div className="min-w-0">
                                       <p className="truncate text-zinc-400">
-                                        {
-                                          block.name
-                                        }
+                                        {block.name}
                                       </p>
 
                                       <p className="text-xs text-zinc-600">
@@ -918,9 +931,7 @@ export default function Home() {
 
                                     <span className="shrink-0 rounded-md bg-zinc-900 px-2 py-1 text-[10px] text-zinc-400 sm:text-xs">
                                       Complexity{" "}
-                                      {
-                                        block.complexity
-                                      }
+                                      {block.complexity}
                                     </span>
                                   </div>
                                 )
